@@ -8,8 +8,7 @@ import retrofit2.http.POST;
 
 public interface BotService {
 
-    // todo: check the URL path
-    @POST("/askmarvin")
+    @POST("/webhook/rest/webhook")
     Call<List<BotResponse>> askQuestion(@Body BotRequest botRequest);
 
 }
