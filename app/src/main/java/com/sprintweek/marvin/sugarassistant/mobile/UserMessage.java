@@ -7,4 +7,16 @@ public class UserMessage extends BaseMessage{
         super(message, createdAt);
         this.user = user;
     }
+
+    public String getMessage(){
+        return this.message;
+    }
+
+    public User getSender(){
+        return this.user;
+    }
+
+    public long getCreatedAt(){
+        return this.createdAt;
+    }
 }
