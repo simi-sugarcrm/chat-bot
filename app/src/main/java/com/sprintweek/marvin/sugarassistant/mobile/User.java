@@ -1,6 +1,6 @@
 package com.sprintweek.marvin.sugarassistant.mobile;
 
-public class User extends Entity{
+public class User extends Entity {
 
     String name;
     String profileUrl;

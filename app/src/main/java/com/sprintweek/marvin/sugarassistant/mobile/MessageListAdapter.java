@@ -55,7 +55,6 @@ public class MessageListAdapter extends RecyclerView.Adapter {
     }
 
 
-
     public MessageListAdapter(Context context, List<BaseMessage> messageList) {
         mContext = context;
         mMessageList = messageList;
@@ -83,7 +82,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
     // Inflates the appropriate layout according to the ViewType.
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        
+
         View view;
         if (viewType == Constants.VIEW_TYPE_MESSAGE_SENT) {
             view = LayoutInflater.from(parent.getContext())
@@ -102,10 +101,9 @@ public class MessageListAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         EntityMessage message = (EntityMessage) mMessageList.get(position);
-        if (holder.getItemViewType() == Constants.VIEW_TYPE_MESSAGE_SENT){
+        if (holder.getItemViewType() == Constants.VIEW_TYPE_MESSAGE_SENT) {
             ((SentMessageHolder) holder).bind(message);
-        }
-        else if (holder.getItemViewType() == Constants.VIEW_TYPE_MESSAGE_RECEIVED){
+        } else if (holder.getItemViewType() == Constants.VIEW_TYPE_MESSAGE_RECEIVED) {
             ((ReceivedMessageHolder) holder).bind(message);
         }
     }
