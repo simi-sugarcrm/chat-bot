@@ -40,7 +40,7 @@
 
         <EditText
             android:id="@+id/edittext_chatbox"
-            android:hint="Enter message"
+            android:hint="Type your message...."
             android:background="@android:color/transparent"
             android:layout_gravity="center"
             android:layout_marginLeft="16dp"
@@ -59,7 +59,7 @@
             android:layout_width="64dp"
             android:layout_height="48dp"
             android:gravity="center"
-            android:onClick="sendMessage"
+            android:onClick="sendUserMessage"
             android:layout_gravity="bottom" />
 
     </LinearLayout>

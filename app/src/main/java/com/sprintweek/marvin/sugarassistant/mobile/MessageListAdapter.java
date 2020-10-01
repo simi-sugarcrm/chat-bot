@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -28,12 +27,12 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             profileImage = (ImageView) itemView.findViewById(R.id.image_message_profile);
         }
 
-        void bind(UserMessage message) {
+        void bind(EntityMessage message) {
             messageText.setText(message.getMessage());
 
             // Format the stored timestamp into a readable String using method.
-            timeText.setText(Long.toString(message.getCreatedAt()));
-            nameText.setText(message.getSender().getNickname());
+            timeText.setText(message.getFormattedCreatedAt());
+            nameText.setText(message.getSender().getName());
 
             // Insert the profile image from the URL into the ImageView.
             //Utils.displayRoundImageFromUrl(mContext, message.getSender().getProfileUrl(), profileImage);
@@ -49,7 +48,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             timeText = (TextView) itemView.findViewById(R.id.text_message_time);
         }
 
-        void bind(UserMessage message) {
+        void bind(EntityMessage message) {
             messageText.setText(message.getMessage());
 
             // Format the stored timestamp into a readable String using method.
@@ -72,9 +71,9 @@ public class MessageListAdapter extends RecyclerView.Adapter {
     // Determines the appropriate ViewType according to the sender of the message.
     @Override
     public int getItemViewType(int position) {
-        UserMessage message = (UserMessage) mMessageList.get(position);
+        EntityMessage message = (EntityMessage) mMessageList.get(position);
 
-        if (message.getSender().getUserId() != Constants.AI_ID) {
+        if (message.getSender().getEntityId() != Constants.AI_ID) {
             // If the current user is the sender of the message
             return Constants.VIEW_TYPE_MESSAGE_SENT;
         } else {
@@ -104,7 +103,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
     // Passes the message object to a ViewHolder so that the contents can be bound to UI.
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        UserMessage message = (UserMessage) mMessageList.get(position);
+        EntityMessage message = (EntityMessage) mMessageList.get(position);
         if (holder.getItemViewType() == Constants.VIEW_TYPE_MESSAGE_SENT){
             ((SentMessageHolder) holder).bind(message);
         }
