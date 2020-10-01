@@ -7,14 +7,23 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.List;
+import java.util.Locale;
 
 public class MessageListAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private List<BaseMessage> mMessageList;
+
+    private final DateTimeFormatter formatter = DateTimeFormatter
+            .ofLocalizedDateTime(FormatStyle.SHORT, FormatStyle.MEDIUM)
+            .withLocale(Locale.getDefault())
+            .withZone(ZoneId.systemDefault());
 
     private class ReceivedMessageHolder extends RecyclerView.ViewHolder {
         TextView messageText, timeText, nameText;
@@ -53,10 +62,9 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             messageText.setText(message.getMessage());
 
             // Format the stored timestamp into a readable String using method.
-            timeText.setText(Long.toString(message.getCreatedAt()));
+            timeText.setText(formatter.format(Instant.ofEpochMilli(message.createdAt)));
         }
     }
-
 
 
     public MessageListAdapter(Context context, List<BaseMessage> messageList) {
@@ -86,7 +94,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
     // Inflates the appropriate layout according to the ViewType.
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        
+
         View view;
         if (viewType == Constants.VIEW_TYPE_MESSAGE_SENT) {
             view = LayoutInflater.from(parent.getContext())
@@ -105,10 +113,9 @@ public class MessageListAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         UserMessage message = (UserMessage) mMessageList.get(position);
-        if (holder.getItemViewType() == Constants.VIEW_TYPE_MESSAGE_SENT){
+        if (holder.getItemViewType() == Constants.VIEW_TYPE_MESSAGE_SENT) {
             ((SentMessageHolder) holder).bind(message);
-        }
-        else if (holder.getItemViewType() == Constants.VIEW_TYPE_MESSAGE_RECEIVED){
+        } else if (holder.getItemViewType() == Constants.VIEW_TYPE_MESSAGE_RECEIVED) {
             ((ReceivedMessageHolder) holder).bind(message);
         }
     }
