@@ -8,7 +8,7 @@ import retrofit2.http.POST;
 
 public interface BotService {
 
-    @POST("/webhook/rest/webhook")
+    @POST("/webhooks/rest/webhook")
     Call<List<BotResponse>> askQuestion(@Body BotRequest botRequest);
 
 }
