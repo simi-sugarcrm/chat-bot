@@ -18,20 +18,23 @@ public class MessageListActivity extends AppCompatActivity {
     List<BaseMessage> messageList;
     private User user;
     private Bot bot;
+    LinearLayoutManager mLayoutManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         //initialization
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_list);
-        user = new User( "user", "profileUrl");
+        user = new User( "John", "profileUrl");
         bot = new Bot();
         messageList = new ArrayList();
+        mLayoutManager = new LinearLayoutManager(this);
 
         // set up recycler and adapter
         mMessageRecycler = (RecyclerView) findViewById(R.id.reyclerview_message_list);
         mMessageAdapter = new MessageListAdapter(this, messageList);
-        mMessageRecycler.setLayoutManager(new LinearLayoutManager(this));
+        //mLayoutManager.setStackFromEnd(true);
+        mMessageRecycler.setLayoutManager(mLayoutManager);
         mMessageRecycler.setAdapter(mMessageAdapter);
 
 
@@ -46,16 +49,18 @@ public class MessageListActivity extends AppCompatActivity {
             messageList.add(message);
             mMessageAdapter.notifyDataSetChanged();
             text.setText("");
+            mMessageRecycler.smoothScrollToPosition(mMessageRecycler.getAdapter().getItemCount());
         }
     }
 
     public void sendGreeting(){
         String greeting = "Welcome " + user.getName() + "." + " I can help you with a series of tasks, by" +
-                " simply typing or saying some of these sample commands:\n\n\u2022 What's on my agenda today?\n\u2022 Can you schedule" +
-                " me a meeting?\n\u2022 What's my next task?\n\nSo " + user.getName() + "..." + "what can I help you with?";
+                " simply typing or saying some of these sample commands:\n\n" + "\u2022 \"What's on my agenda today?\"\n\u2022 \"Can you schedule" +
+                " me a meeting?\"\n\u2022 \"What's my next task?\"\n\nSo " + user.getName() + "..." + "what can I help you with?";
 
         EntityMessage message = new EntityMessage(greeting, System.currentTimeMillis(), bot);
         messageList.add(message);
         mMessageAdapter.notifyDataSetChanged();
+        mMessageRecycler.smoothScrollToPosition(mMessageRecycler.getAdapter().getItemCount());
     }
 }
