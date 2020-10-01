@@ -3,6 +3,7 @@ package com.sprintweek.marvin.sugarassistant.mobile;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,40 +31,61 @@ public class MessageListActivity extends AppCompatActivity {
     private MessageListAdapter messageAdapter;
     private List<BaseMessage> messageList;
     private User user;
-    private User bot;
+    private Bot bot;
+    LinearLayoutManager layoutManager;
 
     private BotService botService;
     private List<Call<List<BotResponse>>> calls = new CopyOnWriteArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //initialization
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_list);
-        user = new User(true, "me");
-        bot = new User(false, "marvin");
+        user = new User( "John", "profileUrl");
+        bot = new Bot();
         messageList = new ArrayList<>();
-        messageRecycler = findViewById(R.id.reyclerview_message_list);
+        layoutManager = new LinearLayoutManager(this);
+
+        // set up recycler and adapter
+        messageRecycler = (RecyclerView) findViewById(R.id.reyclerview_message_list);
         messageAdapter = new MessageListAdapter(this, messageList);
-        messageRecycler.setLayoutManager(new LinearLayoutManager(this));
+        //mLayoutManager.setStackFromEnd(true);
+        messageRecycler.setLayoutManager(layoutManager);
         messageRecycler.setAdapter(messageAdapter);
 
         botService = ApiClient.getApiClient().create(BotService.class);
+
+        sendGreeting();
     }
 
-    public void sendMessage(View view) {
-        EditText text = findViewById(R.id.edittext_chatbox);
+    public void sendUserMessage(View view){
+        EditText text = (EditText)findViewById(R.id.edittext_chatbox);
         String textString = text.getText().toString();
-        if (textString.length() > 0) {
-            UserMessage message = new UserMessage(textString, System.currentTimeMillis(), user);
+        if (textString.length() > 0){
+            EntityMessage message = new EntityMessage(textString, System.currentTimeMillis(), user);
             messageList.add(message);
             messageAdapter.notifyDataSetChanged();
             text.setText("");
             askBot(textString);
+            messageRecycler.smoothScrollToPosition(messageRecycler.getAdapter().getItemCount());
         }
     }
 
+    public void sendGreeting(){
+        String greeting = "Welcome " + user.getName() + "." + " I can help you with a series of tasks, by" +
+                " simply typing or saying some of these sample commands:\n\n" + "\u2022 \"What's on my agenda today?\"\n\u2022 \"Can you schedule" +
+                " me a meeting?\"\n\u2022 \"What's my next task?\"\n\nSo " + user.getName() + "..." + "what can I help you with?";
+
+        EntityMessage message = new EntityMessage(greeting, System.currentTimeMillis(), bot);
+        messageList.add(message);
+        messageAdapter.notifyDataSetChanged();
+        messageRecycler.smoothScrollToPosition(messageRecycler.getAdapter().getItemCount());
+    }
+
     private void askBot(String message) {
-        BotRequest request = new BotRequest(user.nickname, message);
+        BotRequest request = new BotRequest(user.getName(), message);
 
         Call<List<BotResponse>> call = botService.askQuestion(request);
         call.enqueue(new Callback<List<BotResponse>>() {
@@ -90,7 +112,7 @@ public class MessageListActivity extends AppCompatActivity {
     }
 
     private void addAnswer(String answer) {
-        UserMessage message = new UserMessage(answer, System.currentTimeMillis(), bot);
+        EntityMessage message = new EntityMessage(answer, System.currentTimeMillis(), bot);
         messageList.add(message);
         messageAdapter.notifyDataSetChanged();
     }

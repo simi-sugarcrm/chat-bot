@@ -1,24 +1,26 @@
 package com.sprintweek.marvin.sugarassistant.mobile;
 
-public class User {
-    boolean human;
-    String nickname;
+public class User extends Entity {
 
-    public User(boolean human, String nickname) {
-        this.human = human;
-        this.nickname = nickname;
+    String name;
+    String profileUrl;
+
+    public User(String name, String profileUrl){
+        this.name = name;
+        this.profileUrl = profileUrl;
     }
 
-
-    public String getNickname() {
-        return this.nickname;
+    @Override
+    public int getEntityId() {
+        return Constants.HUMAN_ID;
     }
 
-    public int getUserId() {
-        if (human) {
-            return Constants.HUMAN_ID;
-        } else {
-            return Constants.AI_ID;
-        }
+    @Override
+    public String getName(){
+        return this.name;
+    }
+
+    public String getProfileUrl(){
+        return this.profileUrl;
     }
 }
