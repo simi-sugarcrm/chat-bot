@@ -3,7 +3,6 @@ package com.sprintweek.marvin.sugarassistant.mobile;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,7 +42,7 @@ public class MessageListActivity extends AppCompatActivity {
         //initialization
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_list);
-        user = new User( "John", "profileUrl");
+        user = new User("John", "profileUrl");
         bot = new Bot();
         messageList = new ArrayList<>();
         layoutManager = new LinearLayoutManager(this);
@@ -60,10 +59,10 @@ public class MessageListActivity extends AppCompatActivity {
         sendGreeting();
     }
 
-    public void sendUserMessage(View view){
-        EditText text = (EditText)findViewById(R.id.edittext_chatbox);
+    public void sendUserMessage(View view) {
+        EditText text = (EditText) findViewById(R.id.edittext_chatbox);
         String textString = text.getText().toString();
-        if (textString.length() > 0){
+        if (textString.length() > 0) {
             EntityMessage message = new EntityMessage(textString, System.currentTimeMillis(), user);
             messageList.add(message);
             messageAdapter.notifyDataSetChanged();
@@ -73,7 +72,7 @@ public class MessageListActivity extends AppCompatActivity {
         }
     }
 
-    public void sendGreeting(){
+    public void sendGreeting() {
         String greeting = "Welcome " + user.getName() + "." + " I can help you with a series of tasks, by" +
                 " simply typing or saying some of these sample commands:\n\n" + "\u2022 \"What's on my agenda today?\"\n\u2022 \"Can you schedule" +
                 " me a meeting?\"\n\u2022 \"What's my next task?\"\n\nSo " + user.getName() + "..." + "what can I help you with?";
@@ -115,12 +114,14 @@ public class MessageListActivity extends AppCompatActivity {
         EntityMessage message = new EntityMessage(answer, System.currentTimeMillis(), bot);
         messageList.add(message);
         messageAdapter.notifyDataSetChanged();
+        messageRecycler.smoothScrollToPosition(messageRecycler.getAdapter().getItemCount());
     }
 
     private void addErrorMessage() {
-        UserMessage message = new UserMessage("I think you ought to know I'm feeling very depressed.", System.currentTimeMillis(), bot);
+        EntityMessage message = new EntityMessage("I think you ought to know I'm feeling very depressed.", System.currentTimeMillis(), bot);
         messageList.add(message);
         messageAdapter.notifyDataSetChanged();
+        messageRecycler.smoothScrollToPosition(messageRecycler.getAdapter().getItemCount());
     }
 
     @Override

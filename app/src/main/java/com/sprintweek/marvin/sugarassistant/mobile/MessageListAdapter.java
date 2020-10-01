@@ -9,21 +9,11 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.List;
-import java.util.Locale;
 
 public class MessageListAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private List<BaseMessage> mMessageList;
-
-    private final DateTimeFormatter formatter = DateTimeFormatter
-            .ofLocalizedDateTime(FormatStyle.SHORT, FormatStyle.MEDIUM)
-            .withLocale(Locale.getDefault())
-            .withZone(ZoneId.systemDefault());
 
     private class ReceivedMessageHolder extends RecyclerView.ViewHolder {
         TextView messageText, timeText, nameText;
@@ -111,10 +101,9 @@ public class MessageListAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         EntityMessage message = (EntityMessage) mMessageList.get(position);
-        if (holder.getItemViewType() == Constants.VIEW_TYPE_MESSAGE_SENT){
+        if (holder.getItemViewType() == Constants.VIEW_TYPE_MESSAGE_SENT) {
             ((SentMessageHolder) holder).bind(message);
-        }
-        else if (holder.getItemViewType() == Constants.VIEW_TYPE_MESSAGE_RECEIVED){
+        } else if (holder.getItemViewType() == Constants.VIEW_TYPE_MESSAGE_RECEIVED) {
             ((ReceivedMessageHolder) holder).bind(message);
         }
     }
