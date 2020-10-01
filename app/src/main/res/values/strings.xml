@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Sugar Assistant</string>
+    <string name="welcome_message">Welcome to Marvin.\nI am your virtual assistant that will help you\nstay up-to-date with client interactions while\non the go using voice and text commands.</string>
+    <string name="greeting_options"><i>What\'s on my agenda today?</i>\n Can you schedule" +
+                " me a meeting?\nWhat\'s my next task?\n\nSo " + user.getName() + "…" + "what can I help you with?</string>
 </resources>

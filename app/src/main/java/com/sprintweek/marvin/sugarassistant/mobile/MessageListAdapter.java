@@ -24,7 +24,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             messageText = (TextView) itemView.findViewById(R.id.text_message_body);
             timeText = (TextView) itemView.findViewById(R.id.text_message_time);
             nameText = (TextView) itemView.findViewById(R.id.text_message_name);
-            profileImage = (ImageView) itemView.findViewById(R.id.image_message_profile);
+            profileImage = (ImageView) itemView.findViewById(R.id.bot_image_message_profile);
         }
 
         void bind(EntityMessage message) {
@@ -52,7 +52,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             messageText.setText(message.getMessage());
 
             // Format the stored timestamp into a readable String using method.
-            timeText.setText(Long.toString(message.getCreatedAt()));
+            timeText.setText(message.getFormattedCreatedAt());
         }
     }
 
