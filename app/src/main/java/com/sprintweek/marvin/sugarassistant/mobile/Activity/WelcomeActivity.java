@@ -1,10 +1,13 @@
-package com.sprintweek.marvin.sugarassistant.mobile;
+package com.sprintweek.marvin.sugarassistant.mobile.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.sprintweek.marvin.sugarassistant.mobile.Activity.MessageListActivity;
+import com.sprintweek.marvin.sugarassistant.mobile.R;
 
 public class WelcomeActivity extends AppCompatActivity {
 

@@ -11,19 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".SplashScreenActivity">
+        <activity android:name=".Activity.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".WelcomeActivity" android:windowSoftInputMode="adjustResize">
+        <activity android:name=".Activity.WelcomeActivity" android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MessageListActivity" android:windowSoftInputMode="adjustResize">
+        <activity android:name=".Activity.MessageListActivity" android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

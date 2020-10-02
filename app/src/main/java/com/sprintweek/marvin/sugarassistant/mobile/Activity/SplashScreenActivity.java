@@ -1,10 +1,11 @@
-package com.sprintweek.marvin.sugarassistant.mobile;
+package com.sprintweek.marvin.sugarassistant.mobile.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.sprintweek.marvin.sugarassistant.mobile.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -23,7 +24,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                     sleep(2000);
 
                     // After 2 seconds redirect to another intent
-                    Intent i=new Intent(getBaseContext(),WelcomeActivity.class);
+                    Intent i=new Intent(getBaseContext(), WelcomeActivity.class);
                     startActivity(i);
 
                     //Remove activity

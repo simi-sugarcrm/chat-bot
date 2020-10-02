@@ -1,9 +1,10 @@
-package com.sprintweek.marvin.sugarassistant.mobile;
+package com.sprintweek.marvin.sugarassistant.mobile.Model;
 
-public class Bot extends Entity{
+import com.sprintweek.marvin.sugarassistant.mobile.Constants;
+
+public class Bot extends Entity {
 
     String name;
-    String profileUrl;
 
     public Bot(){
         this.name = Constants.AI_NAME;

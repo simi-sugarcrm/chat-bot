@@ -1,4 +1,4 @@
-package com.sprintweek.marvin.sugarassistant.mobile;
+package com.sprintweek.marvin.sugarassistant.mobile.Model;
 
 public abstract class Entity {
     abstract public int getEntityId();

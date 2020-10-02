@@ -1,10 +1,10 @@
-package com.sprintweek.marvin.sugarassistant.mobile;
+package com.sprintweek.marvin.sugarassistant.mobile.Model;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class EntityMessage extends BaseMessage{
+public class EntityMessage extends BaseMessage {
     Entity entity;
 
     public EntityMessage(String message, long createdAt, Entity entity){
