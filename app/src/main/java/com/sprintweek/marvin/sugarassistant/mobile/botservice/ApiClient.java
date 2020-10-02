@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    private static final String BASE_URL = "https://745721d1aeef.ngrok.io/";
+    private static final String BASE_URL = "https://5d68386bc4b9.ngrok.io/";
     private static final String AUTH_HEADER_NAME = "Authorization";
     private static final String AUTH_HEADER_VALUE = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.qdrr2_a7Sd80gmCWjnDomOGl8eZFVfKXA6jhncgRn-I";
 
@@ -28,7 +28,9 @@ public class ApiClient {
                                 .build();
                         return chain.proceed(request);
                     })
-                    .callTimeout(2, TimeUnit.MINUTES)
+                    .connectTimeout(2, TimeUnit.MINUTES)
+                    .readTimeout(2, TimeUnit.MINUTES)
+                    .writeTimeout(2, TimeUnit.MINUTES)
                     .build();
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)

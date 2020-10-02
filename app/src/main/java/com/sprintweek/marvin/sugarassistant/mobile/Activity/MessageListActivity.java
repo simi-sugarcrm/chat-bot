@@ -53,7 +53,7 @@ public class MessageListActivity extends AppCompatActivity {
         //initialization
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_list);
-        user = new User("John", "profileUrl");
+        user = new User("Nora", "profileUrl");
         bot = new Bot();
         messageList = new ArrayList<>();
         layoutManager = new LinearLayoutManager(this);
@@ -125,7 +125,7 @@ public class MessageListActivity extends AppCompatActivity {
     }
 
     private void addErrorMessage() {
-        addBotMessage("I think you ought to know I'm feeling very depressed.");
+        addBotMessage("This is taking longer than expected but I'm working on it. Anything else?");
     }
 
     private void addBotMessage(String text) {
@@ -164,7 +164,13 @@ public class MessageListActivity extends AppCompatActivity {
             case 10:
                 if (resultCode == RESULT_OK && data != null) {
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    text.setText(result.get(0));
+                    StringBuilder builder = new StringBuilder(result.get(0));
+
+                    //capitalize first letter
+                    if (builder != null && builder.length() > 0 && Character.isAlphabetic(builder.charAt(0))){
+                        builder.setCharAt(0, Character.toUpperCase(builder.charAt(0)));
+                    }
+                    text.setText(builder.toString());
                 }
                 break;
         }
