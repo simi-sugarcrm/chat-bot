@@ -1,4 +1,4 @@
-package com.sprintweek.marvin.sugarassistant.mobile;
+package com.sprintweek.marvin.sugarassistant.mobile.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sprintweek.marvin.sugarassistant.mobile.Adapter.MessageListAdapter;
+import com.sprintweek.marvin.sugarassistant.mobile.Model.BaseMessage;
+import com.sprintweek.marvin.sugarassistant.mobile.Model.Bot;
+import com.sprintweek.marvin.sugarassistant.mobile.Model.EntityMessage;
+import com.sprintweek.marvin.sugarassistant.mobile.Model.User;
+import com.sprintweek.marvin.sugarassistant.mobile.R;
 import com.sprintweek.marvin.sugarassistant.mobile.botservice.ApiClient;
 import com.sprintweek.marvin.sugarassistant.mobile.botservice.BotRequest;
 import com.sprintweek.marvin.sugarassistant.mobile.botservice.BotResponse;

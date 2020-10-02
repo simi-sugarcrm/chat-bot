@@ -1,4 +1,6 @@
-package com.sprintweek.marvin.sugarassistant.mobile;
+package com.sprintweek.marvin.sugarassistant.mobile.Model;
+
+import com.sprintweek.marvin.sugarassistant.mobile.Constants;
 
 public class User extends Entity {
 

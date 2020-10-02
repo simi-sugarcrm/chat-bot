@@ -1,4 +1,4 @@
-package com.sprintweek.marvin.sugarassistant.mobile;
+package com.sprintweek.marvin.sugarassistant.mobile.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.sprintweek.marvin.sugarassistant.mobile.Constants;
+import com.sprintweek.marvin.sugarassistant.mobile.Model.BaseMessage;
+import com.sprintweek.marvin.sugarassistant.mobile.Model.EntityMessage;
+import com.sprintweek.marvin.sugarassistant.mobile.R;
 
 import java.util.List;
 
