@@ -1,9 +1,12 @@
 package com.sprintweek.marvin.sugarassistant.mobile;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,6 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import retrofit2.Call;
@@ -32,6 +36,7 @@ public class MessageListActivity extends AppCompatActivity {
     private User user;
     private Bot bot;
     LinearLayoutManager layoutManager;
+    EditText text;
 
     private BotService botService;
     private List<Call<List<BotResponse>>> calls = new CopyOnWriteArrayList<>();
@@ -46,6 +51,7 @@ public class MessageListActivity extends AppCompatActivity {
         bot = new Bot();
         messageList = new ArrayList<>();
         layoutManager = new LinearLayoutManager(this);
+        text = (EditText) findViewById(R.id.edittext_chatbox);
 
         // set up recycler and adapter
         messageRecycler = (RecyclerView) findViewById(R.id.reyclerview_message_list);
@@ -60,7 +66,6 @@ public class MessageListActivity extends AppCompatActivity {
     }
 
     public void sendUserMessage(View view) {
-        EditText text = (EditText) findViewById(R.id.edittext_chatbox);
         String textString = text.getText().toString();
         if (textString.length() > 0) {
             EntityMessage message = new EntityMessage(textString, System.currentTimeMillis(), user);
@@ -132,4 +137,31 @@ public class MessageListActivity extends AppCompatActivity {
         }
         calls.clear();
     }
+
+    public void getSpeechInput(View view) {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(intent, 10);
+        } else {
+            Toast.makeText(this, "Your device does not support speech input", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case 10:
+                if (resultCode == RESULT_OK && data != null) {
+                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    text.setText(result.get(0));
+                }
+                break;
+        }
+    }
+
 }
