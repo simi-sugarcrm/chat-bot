@@ -103,7 +103,10 @@ public class MessageListActivity extends AppCompatActivity {
             public void onResponse(@NotNull Call<List<BotResponse>> call, @NotNull Response<List<BotResponse>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     for (BotResponse botResponse : response.body()) {
-                        addAnswer(botResponse.getText());
+                        addBotMessage(botResponse.getText());
+                    }
+                    if (response.body().size() == 0) {
+                        addBotMessage("I'm fifty thousand times more intelligent than you and even I don't know the answer.");
                     }
                 } else {
                     addErrorMessage();
@@ -121,15 +124,12 @@ public class MessageListActivity extends AppCompatActivity {
         calls.add(call);
     }
 
-    private void addAnswer(String answer) {
-        EntityMessage message = new EntityMessage(answer, System.currentTimeMillis(), bot);
-        messageList.add(message);
-        messageAdapter.notifyDataSetChanged();
-        messageRecycler.smoothScrollToPosition(messageRecycler.getAdapter().getItemCount());
+    private void addErrorMessage() {
+        addBotMessage("I think you ought to know I'm feeling very depressed.");
     }
 
-    private void addErrorMessage() {
-        EntityMessage message = new EntityMessage("I think you ought to know I'm feeling very depressed.", System.currentTimeMillis(), bot);
+    private void addBotMessage(String text) {
+        EntityMessage message = new EntityMessage(text, System.currentTimeMillis(), bot);
         messageList.add(message);
         messageAdapter.notifyDataSetChanged();
         messageRecycler.smoothScrollToPosition(messageRecycler.getAdapter().getItemCount());
